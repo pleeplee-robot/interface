@@ -87,12 +87,13 @@ class Map:
 
         self.surface.blit(mask, (0, 0), None, pygame.BLEND_RGBA_MULT)
 
-    def mask_grass_on_durt(self):
+    def mask_grass_on_durt(self, map_data):
         for j in range(0, self.surface.get_height()):
             for i in range(0, self.surface.get_width()):
                 if self.surface.get_at((i, j)) != Color("white"):
                     self.surface_grass.set_at((i, j), Color("white"))
-
+                else:
+                    map_data[900 * (j - 25) + i - 25] = 'G'
 
         self.surface.blit(self.surface_grass, (0, 0), None, pygame.BLEND_RGBA_MULT)
 

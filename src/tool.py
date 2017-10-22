@@ -117,7 +117,6 @@ def done_balise(screen, menu, game_engine, game_map=None):
         if len(points) >= 3:
                 pygame.draw.polygon(game_map.surface, (255, 255, 255), points)
                 pygame.display.flip()
-                game_map.mask_grass_on_durt()
 
                 try:
                         with open(game_engine.outfile_json, "rt") as fp:
@@ -140,6 +139,7 @@ def done_balise(screen, menu, game_engine, game_map=None):
                 map_data = []
                 with open('map.capture_init', 'r') as map_file:
                         map_data = list(map_file.read().replace('\n', ''))
+                        game_map.mask_grass_on_durt(map_data)
                         for b in game_engine.balises:
                                 map_data[900 * (b.pos.y - 25) + b.pos.x - 25] = 'B'
                         map_file.close()
