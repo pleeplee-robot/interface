@@ -27,7 +27,7 @@ def menu_loop(screen):
     button_fetch = Button(screen_width * 0.50, screen_width * 0.60, 232, 93,
                           "../assets/buttons/button_fetch_a.png",
                           "../assets/buttons/button_fetch.png",
-                          None)
+                          appli_fetch_loop)
 
     while True: # Menu game loop
         # Update

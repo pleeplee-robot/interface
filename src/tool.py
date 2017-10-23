@@ -4,6 +4,7 @@ import pygame
 import sys
 import time
 import json
+import pygame_textinput
 
 from pygame.locals import *
 from light_beacon import *
@@ -29,18 +30,18 @@ def blit_on(surface, texture_name):
                 surface.blit(img, rect)
 
 
-def game_quit(screen=None, menu=None, game=None, game_map=None):
+def game_quit(screen=None, menu=None, game=None, game_map=None, param=None):
         pygame.quit()
         sys.exit()
 
 
-def swap_t_is_chosing_color(screen, menu, game_engine, game_map=None):
+def swap_t_is_chosing_color(screen, menu, game_engine, game_map=None, param=None):
         menu.is_color_chosing = False;
 
-def swap_c_is_chosing_color(screen, menu, game_engine, game_map=None):
+def swap_c_is_chosing_color(screen, menu, game_engine, game_map=None, param=None):
         menu.is_color_chosing = True;
 
-def add_balise(screen, menu, game_engine, game_map=None):
+def add_balise(screen, menu, game_engine, game_map=None, param=None):
         coord = menu.text_input.input_string.split(";")
         color = menu.color_input.input_string
         if len(coord) != 2:
@@ -70,7 +71,7 @@ def add_balise(screen, menu, game_engine, game_map=None):
                 menu.time_passed = 0
                 game_engine.balises.append(lu_beacon)
 
-def add_more_balise(screen, menu, game_engine, game_map=None):
+def add_more_balise(screen, menu, game_engine, game_map=None, param=None):
         coord = menu.text_input.input_string.split(";")
         color = menu.color_input.input_string
         if len(coord) != 2:
@@ -100,16 +101,16 @@ def add_more_balise(screen, menu, game_engine, game_map=None):
                 menu.time_passed = 0
                 game_engine.balises_additionnals.append(lu_beacon)
 
-def undo_balise(screen, menu, game_engine, game_map=None):
+def undo_balise(screen, menu, game_engine, game_map=None, param=None):
         if (len(game_engine.balises) > 0):
                 game_engine.balises.pop()
 
-def undo_more_balise(screen, menu, game_engine, game_map=None):
+def undo_more_balise(screen, menu, game_engine, game_map=None, param=None):
         if (len(game_engine.balises_additionnals) > 0):
                 game_engine.balises_additionnals.pop()
 
 
-def done_balise(screen, menu, game_engine, game_map=None):
+def done_balise(screen, menu, game_engine, game_map=None, param=None):
         points = []
         for b in game_engine.balises:
                 points.append(b.init_pos)
@@ -153,7 +154,7 @@ def done_balise(screen, menu, game_engine, game_map=None):
                 menu.button_afterdone()
 
 
-def finish_balise(screen, menu, game_engine, game_map=None):
+def finish_balise(screen, menu, game_engine, game_map=None, param=None):
         data = {}
 
         with open(game_engine.outfile_json, "rt") as fp:
@@ -185,3 +186,54 @@ def finish_balise(screen, menu, game_engine, game_map=None):
 
         pygame.quit()
         sys.exit()
+
+def show_plant(screen, menu, game_engine, game_map=None, param=None):
+        menu.init_menu(screen)
+        menu.plant_im = pygame.image.load(param.picture_path).convert_alpha()
+        menu.plant_im = pygame.transform.scale(menu.plant_im, (350, 200))
+        myfont = pygame.font.SysFont("comicsansms", 15)
+        msg_surface = myfont.render("Set watering interval in minutes:",
+                                     False, (0, 255, 55))
+        menu.surface.blit(msg_surface, (8, 295))
+        msg_surface = myfont.render("Current watering interval in minutes:",
+                                     False, (200, 255, 55))
+        menu.surface.blit(msg_surface, (8, 275))
+
+        msg_surface = myfont.render(str(param.time_to_water),
+                                     False, (255, 255, 255))
+        menu.surface.blit(msg_surface, (270, 275))
+
+
+        menu.text_input = pygame_textinput.TextInput((972, 323), 7)
+
+        menu.buttons[len(menu.buttons) - 2].plant = param
+        menu.buttons[len(menu.buttons) - 1].plant = param
+
+def remove_plant(screen, menu, game_engine, game_map=None, param=None):
+        menu.plant_im = None
+        menu.text_input = None
+
+        for i in range(0, (len(menu.buttons) - 3)):
+                if menu.buttons[i].plant == param:
+                        menu.buttons.pop(i)
+                        menu.init_menu(screen)
+                        break
+
+        for i in range(0, len(game_engine.plants)):
+                if game_engine.plants[i] == param:
+                   game_engine.plants.pop(i)
+                   break
+
+
+def set_water(screen, menu, game_engine, game_map=None, param=None):
+        for i in range(0, len(game_engine.plants)):
+                if game_engine.plants[i] == param:
+                        try:
+                                game_engine.plants[i].time_to_water = int(menu.text_input.input_string)
+                                menu.text_input.text_color = (0, 0, 0)
+                                show_plant(screen, menu, game_engine, game_map, param)
+                                return
+                        except:
+                                menu.text_input.text_color = (255, 0, 0)
+                                return
+                        break

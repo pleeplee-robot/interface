@@ -16,18 +16,40 @@ class Map:
         self.surface.fill((255, 255, 255))
         self.surface_grass = self.surface.copy()
 
+
+    def create_plant(self, map_data, y , x, plant_info):
+        width = 1
+        acc_x = x + 1
+        acc_y = y
+
+        while map_data[900 * y + acc_x] == 'P':
+            map_data[900 * y + acc_x] = 'G'
+            width += 1;
+            acc_x += 1
+
+        for j in range(y + 1, y + width):
+            for i in range(x, x + width):
+                map_data[900 * j + i] = 'G'
+        plant_info.append(((x, y), width))
+
     def parse_file(self, map_filed, mask):
-        with open(map_filed) as f:
-            for y in range(25, 925):
-                for x in range(25, 925):
-                    c = f.read(1)
+        map_data = []
+        plant_info = []
+        with open(map_filed, 'r') as f:
+            map_data = list(f.read().replace('\n', ''))
+            for y in range(0, 900):
+                for x in range(0, 900):
+                    c = map_data[900 * y + x]
                     if not c:
                         print("End of file")
                         break
                     if c == 'G':
-                        mask.set_at((x, y), Color("white"))
+                        self.surface.set_at((x + 25 , y + 25), Color("white"))
                     elif c == 'O':
                         # insert obstacle
+                        continue
+                    elif c == 'P':
+                        self.create_plant(map_data, y, x, plant_info)
                         continue
                     elif c == 'F':
                         # insert flower
@@ -37,13 +59,14 @@ class Map:
                         continue
                     elif c == 'D':
                         # insert balise
-                        self.surface.set_at((x, y), Color("white"))
+                        mask.set_at((x, y), Color("white"))
                     else:
-                        self.surface.set_at((x, y), Color("white"))
+                        mask.set_at((x, y), Color("white"))
+        f.close()
+        return plant_info
 
     # init map
     def init_map(self, map_name):
-        # FIXME check if open failed
         file_obj = open(map_name, "w+")
         for y in range(0, 900):
             for x in range(0, 900):
@@ -54,38 +77,17 @@ class Map:
 
 
     def init(self, map_filed):
-        dirt_img = pygame.image.load("../assets/textures/durt2.jpg").convert_alpha()
-        grass_img = pygame.image.load("../assets/textures/grass.jpg").convert_alpha()
 
-        grass_rect = grass_img.get_rect()
-        dirt_rect = dirt_img.get_rect()
-
-        surface_h = self.surface.get_height()
-        surface_w = self.surface.get_width()
-
-        nrows_grass = int(surface_h / grass_rect.height) + 1
-        ncols_grass = int(surface_w / grass_rect.width) + 1
-        nrows_dirt = int(surface_h / dirt_rect.height) + 1
-        ncols_dirt = int(surface_w / dirt_rect.width) + 1
-
-        for y in range(nrows_grass):
-            for x in range(ncols_grass):
-                grass_rect.topleft = ((x * grass_rect.width) + 25,
-                                      (y * grass_rect.height) + 25)
-                self.surface.blit(grass_img, grass_rect)
-
-        mask = pygame.Surface((surface_w, surface_h), pygame.SRCALPHA)
-        for y in range(nrows_dirt):
-            for x in range(ncols_dirt):
-                dirt_rect.topleft = (x * dirt_rect.width,
-                                     y * dirt_rect.height)
-                mask.blit(dirt_img, dirt_rect)
-
+        mask = pygame.Surface((899, 899), pygame.SRCALPHA)
+        mask.fill((255, 255, 255))
+        blit_on(self.surface, "../assets/textures/durt2.jpg")
+        blit_on(mask, "../assets/textures/grass.jpg")
         # Modify mask and surface depending the file / should pass later
         # an object controler for balise, flower and obstacle
-        self.parse_file(map_filed, mask)
+        plant_info = self.parse_file(map_filed, mask)
 
-        self.surface.blit(mask, (0, 0), None, pygame.BLEND_RGBA_MULT)
+        self.surface.blit(mask, (25, 25), None, pygame.BLEND_RGBA_MULT)
+        return plant_info
 
     def mask_grass_on_durt(self, map_data):
         for j in range(0, self.surface.get_height()):
