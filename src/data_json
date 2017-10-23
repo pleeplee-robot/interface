@@ -1,0 +1,38 @@
+{
+  "balises": [
+    {
+      "position": "25,25",
+      "color": "red"
+    },
+    {
+      "position": "25,874",
+      "color": "green"
+    },
+    {
+      "position": "874,874",
+      "color": "white"
+    },
+    {
+      "position": "874,25",
+      "color": "blue"
+    }
+  ],
+  "balises_additionnals": [],
+  "plants": [
+    {
+      "to_water": "0",
+      "picture_path": "..\/assets\/misc\/pic_plant.jpg",
+      "position": "800,38"
+    },
+    {
+      "to_water": "0",
+      "picture_path": "..\/assets\/misc\/pic_plant_1.jpg",
+      "position": "400,144"
+    },
+    {
+      "to_water": "0",
+      "picture_path": "..\/assets\/misc\/pic_plant_2.jpg",
+      "position": "800,288"
+    }
+  ]
+}
