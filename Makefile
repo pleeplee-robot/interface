@@ -1,6 +1,11 @@
 REQUIREMENTS=requirements.txt
 TRASH=**/*.pyc **/__pycache__
 
+all: exec
+
+exec:
+	python -m pleeplee
+
 init:
 	pip3 install -r $(REQUIREMENTS)
 
@@ -11,4 +16,4 @@ clean:
 	$(RM) -r $(TRASH)
 	$(MAKE) -C docs/ clean
 
-.PHONY: init clean doc
+.PHONY: all init clean doc
