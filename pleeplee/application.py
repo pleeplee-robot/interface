@@ -1,23 +1,19 @@
-#!/usr/bin/env python3.5
+#!/usr/bin/env python3
 
 import pygame
 import sys
 import time
-import pygame_textinput
+import os
+from . import pygame_textinput
 
-from menu import *
-from game_engine import *
+from .game_engine import GameEngine
 from pygame.locals import *
-from g_map import *
-from menu_init import *
-from menu_fetch import *
-from light_beacon import *
+from .g_map import Map
+from .menu_init import MenuInit
+from .menu_fetch import MenuFetch
+from .light_beacon import LightBeacon
+from .globals import FPS, fps_clock, screen_width, screen_height, basePath
 
-FPS = 40
-fps_clock = pygame.time.Clock()
-
-screen_width = 1300
-screen_height = 950
 
 def appli_init_loop(screen, menu=None, game=None, game_map=None, param=None):
     game_map = Map(pygame.Surface((950, 950), pygame.SRCALPHA))
@@ -56,7 +52,8 @@ def appli_fetch_loop(screen, menu=None, game=None, game_map=None, param=None):
     white = (255, 255, 255)
 
     screen.fill(white)
-    plant_info = game_map.init("map.capture_init")
+    mapPath = os.path.join(basePath, 'map.capture_init')
+    plant_info = game_map.init(mapPath)
     game_engine.set_plant(plant_info)
     game_menu.init_buttons(game_engine)
     while True: # Main game loop
@@ -80,14 +77,4 @@ def appli_fetch_loop(screen, menu=None, game=None, game_map=None, param=None):
         pygame.display.flip()
         fps_clock.tick(30)
 
-def main():
-    pygame.init()
-    pygame.font.init()
-    screen = pygame.display.set_mode((screen_width, screen_height))
-    pygame.display.set_caption('Appleeplee!')
 
-    # Run the menu
-    menu_loop(screen)
-
-if __name__ == "__main__":
-    sys.exit(main())

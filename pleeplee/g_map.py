@@ -1,11 +1,14 @@
-#!/usr/bin/env python3.5
+#!/usr/bin/env python3
 
 import pygame
 from pygame.locals import *
 
 import sys
 import time
-from tool import *
+import os
+
+from .tool import blit_on
+from .globals import assetsPath
 
 class Map:
 
@@ -72,16 +75,20 @@ class Map:
             for x in range(0, 900):
                 file_obj.write("D")
         file_obj.close()
-        blit_on(self.surface, "../assets/textures/durt2.jpg")
-        blit_on(self.surface_grass, "../assets/textures/grass.jpg")
+        textureDirt = os.path.join(assetsPath, 'textures/durt2.jpg')
+        textureGrass = os.path.join(assetsPath, 'textures/grass.jpg')
+        blit_on(self.surface, textureDirt)
+        blit_on(self.surface_grass, textureGrass)
 
 
     def init(self, map_filed):
 
         mask = pygame.Surface((899, 899), pygame.SRCALPHA)
         mask.fill((255, 255, 255))
-        blit_on(self.surface, "../assets/textures/durt2.jpg")
-        blit_on(mask, "../assets/textures/grass.jpg")
+        textureDirt = os.path.join(assetsPath, 'textures/durt2.jpg')
+        textureGrass = os.path.join(assetsPath, 'textures/grass.jpg')
+        blit_on(self.surface, textureDirt)
+        blit_on(mask, textureGrass)
         # Modify mask and surface depending the file / should pass later
         # an object controler for balise, flower and obstacle
         plant_info = self.parse_file(map_filed, mask)

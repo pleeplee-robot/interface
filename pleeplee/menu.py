@@ -1,17 +1,15 @@
-#!/usr/bin/env python3.5
+#!/usr/bin/env python3
 
 import pygame
 import sys
 import time
+import os
 
 from pygame.locals import *
-from button import *
-from main import *
+from .button import Button
+from .application import appli_init_loop, appli_fetch_loop
+from .globals import screen_width, screen_height, FPS, fps_clock, assetsPath
 
-screen_width = 1100
-screen_height = 950
-FPS = 40
-fps_clock = pygame.time.Clock()
 
 def draw_menu(screen, menu_img):
     menu = pygame.image.load(menu_img).convert_alpha()
@@ -20,14 +18,16 @@ def draw_menu(screen, menu_img):
 
 def menu_loop(screen):
 
+    buttonInitA = os.path.join(assetsPath,
+                               'buttons/button_initialisation_a.png')
+    buttonInit = os.path.join(assetsPath, 'buttons/button_initialisation.png')
     button_init = Button(screen_width * 0.50, screen_width * 0.50, 232, 93,
-                         "../assets/buttons/button_initialisation_a.png",
-                         "../assets/buttons/button_initialisation.png",
-                         appli_init_loop)
+                         buttonInitA, buttonInit, appli_init_loop)
+
+    buttonFetchA = os.path.join(assetsPath, 'buttons/button_fetch_a.png')
+    buttonFetch = os.path.join(assetsPath, 'buttons/button_fetch.png')
     button_fetch = Button(screen_width * 0.50, screen_width * 0.60, 232, 93,
-                          "../assets/buttons/button_fetch_a.png",
-                          "../assets/buttons/button_fetch.png",
-                          appli_fetch_loop)
+                          buttonFetchA, buttonFetch, appli_fetch_loop)
 
     while True: # Menu game loop
         # Update
@@ -36,7 +36,8 @@ def menu_loop(screen):
         button_fetch.update(screen, None, None, None)
 
         # Draw menu
-        draw_menu(screen, "../assets/misc/maison.jpg")
+        housePic = os.path.join(assetsPath, 'misc/maison.jpg')
+        draw_menu(screen, housePic)
         button_init.draw(screen)
         button_fetch.draw(screen)
 

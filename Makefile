@@ -1,10 +1,14 @@
 REQUIREMENTS=requirements.txt
-TRASH=**/*.pyc
+TRASH=**/*.pyc **/__pycache__
 
 init:
 	pip3 install -r $(REQUIREMENTS)
 
-clean:
-	rm -rf $(TRASH)
+doc:
+	$(MAKE) -C docs/ html
 
-.PHONY: init test
+clean:
+	$(RM) -r $(TRASH)
+	$(MAKE) -C docs/ clean
+
+.PHONY: init clean doc

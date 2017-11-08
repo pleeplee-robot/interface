@@ -1,3 +1,4 @@
+#/usr/bin/env python3
 #################################
 # AUTHOR: Eli Bendersky         #
 # SUMMARY: Little vect 2d class #

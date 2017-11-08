@@ -1,6 +1,9 @@
 #
 ####### requirements.txt #######
 #
-###### Requirements for the location of the PleePlee-robot project ######
-tox
+###### Requirements for the interface of the PleePlee-robot project ######
 pygame
+
+# Doc
+sphinx
+sphinxcontrib-napoleon

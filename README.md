@@ -12,4 +12,3 @@ robot, it is used to correct mistakes and clarify the map. For example
 the robot only recognize an obstacle, it will be the user job through this
 interfaceto dissociate between plants and real obstacles.
 
-## TODO

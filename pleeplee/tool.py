@@ -1,18 +1,15 @@
-#!/usr/bin/env python3.5
+#!/usr/bin/env python3
 
 import pygame
 import sys
 import time
 import json
-import pygame_textinput
+from . import pygame_textinput
 
 from pygame.locals import *
-from light_beacon import *
+from .light_beacon import LightBeacon
+from .globals import screen_width, screen_height, FPS, fps_clock, assetsPath
 
-screen_width = 1100
-screen_height = 950
-FPS = 40
-fps_clock = pygame.time.Clock()
 
 def blit_on(surface, texture_name):
         img = pygame.image.load(texture_name).convert_alpha()
@@ -60,11 +57,10 @@ def add_balise(screen, menu, game_engine, game_map=None, param=None):
                 except:
                         menu.text_input.text_color = (255, 0, 0)
                         return
-                lu_beacon = LightBeacon(screen,
-                                        '../assets/misc/light_beacon_' + color + '.png',
-                                        '../assets/misc/light_beacon_' + color + '.png',
-                                         (pos_x + 25, pos_y + 25),
-                                        color)
+                myBeaconPic = os.path.join(assetsPath,
+                        'misc/light_beacon_' + color + '.png')
+                lu_beacon = LightBeacon(screen, myBeaconPic, myBeaconPic,
+                                         (pos_x + 25, pos_y + 25),  color)
 
                 menu.color_input.text_color = (0, 0, 0)
                 menu.text_input.text_color = (0, 0, 0)
@@ -90,11 +86,11 @@ def add_more_balise(screen, menu, game_engine, game_map=None, param=None):
                 except:
                         menu.text_input.text_color = (255, 0, 0)
                         return
-                lu_beacon = LightBeacon(screen,
-                                        '../assets/misc/light_beacon_' + color + '.png',
-                                        '../assets/misc/light_beacon_' + color + '.png',
-                                         (pos_x + 25, pos_y + 25),
-                                        color)
+
+                myBeaconPic = os.path.join(assetsPath,
+                        'misc/light_beacon_' + color + '.png')
+                lu_beacon = LightBeacon(screen, myBeaconPic, myBeaconPic,
+                                         (pos_x + 25, pos_y + 25),  color)
 
                 menu.color_input.text_color = (0, 0, 0)
                 menu.text_input.text_color = (0, 0, 0)

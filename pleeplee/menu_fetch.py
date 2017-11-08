@@ -1,17 +1,16 @@
-#!/usr/bin/env python3.5
+#!/usr/bin/env python3
 
 import pygame
 import sys
 import time
+import os
 
 from pygame.locals import *
-from button import *
-from main import *
+from .button import Button
+from .globals import (screen_width, screen_height, FPS, fps_clock,
+        fontPath, assetsPath)
+from .tool import blit_on, game_quit, remove_plant, show_plant, set_water
 
-screen_width = 1300
-screen_height = 950
-FPS = 40
-fps_clock = pygame.time.Clock()
 
 class MenuFetch:
 
@@ -50,10 +49,12 @@ class MenuFetch:
 
     def init_menu(self, screen):
         # Render texture background
-        blit_on(self.surface, "../assets/textures/brick.jpg")
+        brickTexture = os.path.join(assetsPath, 'textures/brick.jpg')
+        blit_on(self.surface, brickTexture)
 
         # Render title
-        myfont = pygame.font.Font("../fonts/Capture_it.ttf", 20)
+        myFontPath = os.path.join(fontPath, 'Capture_it.ttf')
+        myfont = pygame.font.Font(myFontPath, 20)
         title_surface = myfont.render(self.title, False, (255, 255, 255))
         self.surface.blit(title_surface, (8, 0))
 
@@ -101,35 +102,36 @@ class MenuFetch:
 
     def init_buttons(self, game_engine):
         for p in game_engine.plants:
+            buttonPlantA = os.path.join(assetsPath, 'misc/plant_a.png')
+            buttonPlant = os.path.join(assetsPath, 'misc/plant.png')
             button_plant = Button(p.pos_x + 25, p.pos_y + 25, p.width, p.height,
-                                  "../assets/misc/plant_a.png",
-                                  "../assets/misc/plant.png", show_plant, p)
+                                  buttonPlantA, buttonPlant, show_plant, p)
             self.buttons.append(button_plant)
 
-        button_quit = Button(1000, 800, 232, 93,
-                             "../assets/buttons/button_quit_a.png",
-                             "../assets/buttons/button_quit.png",
-                             game_quit)
+        buttonQuitA = os.path.join(assetsPath, 'buttons/button_quit_a.png')
+        buttonQuit = os.path.join(assetsPath, 'buttons/button_quit.png')
+        button_quit = Button(1000, 800, 232, 93, buttonQuitA, buttonQuit,
+                game_quit)
 
+        buttonFinishA = os.path.join(assetsPath, 'buttons/button_finish_a.png')
+        buttonFinish = os.path.join(assetsPath, 'buttons/button_finish.png')
         button_finish = Button(1000, 700, 232, 93,
-                               "../assets/buttons/button_finish_a.png",
-                               "../assets/buttons/button_finish.png",
-                               game_quit)
+                               buttonFinishA, buttonFinish, game_quit)
 
         text_input_button = Button(969, 323, 95, 30,
                                    None,
                                    None,
                                    None)
 
+        buttonSetA = os.path.join(assetsPath, 'buttons/button_set_a.png')
+        buttonSet = os.path.join(assetsPath, 'buttons/button_set.png')
         button_set = Button(1000, 400, 232, 93,
-                            "../assets/buttons/button_set_a.png",
-                            "../assets/buttons/button_set.png",
-                            set_water)
+                            buttonSetA, buttonSet, set_water)
 
+        buttonRemoveA = os.path.join(assetsPath, 'buttons/button_remove_a.png')
+        buttonRemove = os.path.join(assetsPath, 'buttons/button_remove.png')
         button_remove = Button(1000, 500, 232, 93,
-                               "../assets/buttons/button_remove_a.png",
-                               "../assets/buttons/button_remove.png",
-                               remove_plant)
+                               buttonRemoveA, buttonRemove, remove_plant)
 
 
         self.buttons.append(button_quit)

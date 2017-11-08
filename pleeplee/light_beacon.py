@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.5
+#!/usr/bin/env python3
 
 import time
 import pygame
@@ -6,7 +6,7 @@ from pygame.locals import *
 from pygame.sprite import Sprite
 
 import sys
-from vec2d import *
+from .vec2d import vec2d
 
 class LightBeacon(Sprite):
 
