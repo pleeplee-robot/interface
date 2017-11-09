@@ -4,7 +4,7 @@ TRASH=**/*.pyc **/__pycache__
 all: exec
 
 exec:
-	python -m pleeplee
+	python3 -m pleeplee
 
 init:
 	pip3 install -r $(REQUIREMENTS)

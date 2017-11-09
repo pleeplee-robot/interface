@@ -4,11 +4,13 @@ import pygame
 import sys
 import time
 import json
+import os
 from . import pygame_textinput
 
 from pygame.locals import *
 from .light_beacon import LightBeacon
-from .globals import screen_width, screen_height, FPS, fps_clock, assetsPath
+from .globals import (screen_width, screen_height, FPS, fps_clock,
+        assetsPath, basePath)
 
 
 def blit_on(surface, texture_name):
@@ -185,7 +187,8 @@ def finish_balise(screen, menu, game_engine, game_map=None, param=None):
 
 def show_plant(screen, menu, game_engine, game_map=None, param=None):
         menu.init_menu(screen)
-        menu.plant_im = pygame.image.load(param.picture_path).convert_alpha()
+        plantPath = os.path.join(basePath, param.picture_path)
+        menu.plant_im = pygame.image.load(plantPath).convert_alpha()
         menu.plant_im = pygame.transform.scale(menu.plant_im, (350, 200))
         myfont = pygame.font.SysFont("comicsansms", 15)
         msg_surface = myfont.render("Set watering interval in minutes:",

@@ -12,7 +12,7 @@ from .globals import (screen_width, screen_height, FPS, fps_clock,
                       fontPath, assetsPath)
 from .tool import (swap_c_is_chosing_color, swap_t_is_chosing_color,
         game_quit, finish_balise, done_balise, undo_balise, add_balise,
-        add_more_balise, blit_on)
+        add_more_balise, blit_on, undo_more_balise)
 
 
 class MenuInit:
