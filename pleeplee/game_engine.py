@@ -15,9 +15,20 @@ from .globals import (screen_width, screen_height, FPS, fps_clock, assetsPath,
 
 
 class GameEngine:
+    """Game engine and core information representation.
 
-    # surface should be a surface of the size of 350x950
+    Contains the information related to the core application.
+
+    Attributes:
+        balises: List of the main balises in the garden.
+        balises_addtionnals: List of the addionnal balises in the garden.
+        plants: List of the plant in the garden.
+        obstacles: List of the obstacles in the garden.
+        outfile_json: name of the json file that is created after initialisation.
+    """
+
     def __init__(self, screen):
+        """ Initialize game engine with the screen pygame object."""
         self.balises = []
         self.balises_additionnals = []
         self.plants = []
@@ -41,13 +52,21 @@ class GameEngine:
         self.balises.append(lu_beacon4)
 
     def draw_stuff_on(self):
-        # Render elements
+        """Function that call the draw function of all the inner object of the game
+        engine.
+        """
         for b in self.balises:
             b.draw()
         for b in self.balises_additionnals:
             b.draw()
 
     def set_plant(self, plant_info):
+        """Set new plant information.
+
+        Args:
+            self: The current game engine.
+            plant_info: List of plant information retrieved from the init file.
+        """
         dataPath = os.path.join(basePath, 'data_json')
         with open(dataPath) as json_file:
             data = json.load(json_file)

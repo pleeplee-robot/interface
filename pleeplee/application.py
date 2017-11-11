@@ -16,6 +16,16 @@ from .globals import FPS, fps_clock, screen_width, screen_height, basePath
 
 
 def appli_init_loop(screen, menu=None, game=None, game_map=None, param=None):
+    """Loop when the application is launch to init the robot.
+
+    Args:
+        screen: Pygame screen object on which everything is blitted.
+        menu: Menu Object that contains everything related to the menu.
+        game: game Object that contains everything related to the core application.
+        game_map: Map object that represents the map part of the application.
+        param: Any additionnal parameter, due to callback (legacy).
+    """
+
     game_map = Map(pygame.Surface((950, 950), pygame.SRCALPHA))
     game_engine = GameEngine(screen)
     game_menu = MenuInit(pygame.Surface((350, 950), pygame.SRCALPHA), screen)
@@ -46,6 +56,16 @@ def appli_init_loop(screen, menu=None, game=None, game_map=None, param=None):
         fps_clock.tick(30)
 
 def appli_fetch_loop(screen, menu=None, game=None, game_map=None, param=None):
+    """Loop when the application is launch to fetch the data of the robot
+    and let the user interact with it.
+
+    Args:
+        screen: Pygame screen object on which everything is blitted.
+        menu: Menu Object that contains everything related to the menu.
+        game: game Object that contains everything related to the core application.
+        game_map: Map object that represents the map part of the application.
+        param: Any additionnal parameter, due to callback (legacy).
+    """
     game_map = Map(pygame.Surface((950, 950), pygame.SRCALPHA))
     game_engine = GameEngine(screen)
     game_menu = MenuFetch(pygame.Surface((350, 950), pygame.SRCALPHA), screen)
@@ -76,5 +96,3 @@ def appli_fetch_loop(screen, menu=None, game=None, game_map=None, param=None):
 
         pygame.display.flip()
         fps_clock.tick(30)
-
-

@@ -9,10 +9,25 @@ import sys
 from .vec2d import vec2d
 
 class LightBeacon(Sprite):
+    """Simple Balise representation.
 
-    # surface should be a surface of the size of 950x950
+    Contains utility functions for balises manipulation.
+
+    Attributes:
+        screen: pygame screen object.
+        image_a: path of the image when the mouse is not on the button.
+        image_na: path of the image when the mouse is on the button.
+        init_pos: init position.
+        pos: current position.
+        color: color of the balise.
+        action: callback function when clicking on the balise.
+        is_active: tells if the balise is active or not.
+    """
+
     def __init__(self, screen, img_filename, imga_filename, init_position,
                  color, action=None):
+        """Initialize balise width screen, images path, positionn, color and callback"""
+
         Sprite.__init__(self)
         self.screen = screen
         self.image_na = pygame.image.load(img_filename).convert_alpha()
@@ -23,8 +38,9 @@ class LightBeacon(Sprite):
         self.action = action
         self.isactive = False
 
-    # draw on the given surface
+
     def draw(self):
+        """Draw the current balise"""
         if (self.isactive):
             self.draw_rect = self.image_a.get_rect().move(
                 self.pos.x - self.image_a.get_width() / 2,
@@ -38,6 +54,8 @@ class LightBeacon(Sprite):
 
 
     def update(self, screen):
+        """Update the current balise"""
+
         mouse = pygame.mouse.get_pos() # mouse[0] : x / mouse[1] : y
         click = pygame.mouse.get_pressed()
 

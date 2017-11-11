@@ -11,9 +11,18 @@ from .tool import blit_on
 from .globals import assetsPath
 
 class Map:
+    """Game map representation.
+
+    Contains the information related to the map on graphics part.
+
+    Attributes:
+        surface: pygame surface that contains the whole garden graphics
+        surface_grass: pygame surface that contains only grass part of the garden
+    """
 
     # surface should be a surface of the size of 950x950
     def __init__(self, surface_e):
+        """Initilialize the map with a 950x950 surface by default"""
         # get a surface
         self.surface = surface_e
         self.surface.fill((255, 255, 255))
@@ -21,6 +30,15 @@ class Map:
 
 
     def create_plant(self, map_data, y , x, plant_info):
+        """Parse the map.init file and retrieve plant information
+
+        Args:
+            self: the current map.
+            map_data: the character file that represent the garden.
+            y: y coordinate in the garden.
+            x: x coordinate in the garden.
+            plant_info: list of plant information
+        """
         width = 1
         acc_x = x + 1
         acc_y = y
@@ -36,6 +54,10 @@ class Map:
         plant_info.append(((x, y), width))
 
     def parse_file(self, map_filed, mask):
+        """Parse the map init file and create of mask for blitting grass surface
+        on durt surface
+        """
+
         map_data = []
         plant_info = []
         with open(map_filed, 'r') as f:
@@ -68,8 +90,9 @@ class Map:
         f.close()
         return plant_info
 
-    # init map
     def init_map(self, map_name):
+        """Initialize graphics part with a map init file."""
+
         file_obj = open(map_name, "w+")
         for y in range(0, 900):
             for x in range(0, 900):
@@ -82,6 +105,7 @@ class Map:
 
 
     def init(self, map_filed):
+        """Initialize graphics part with a map init file."""
 
         mask = pygame.Surface((899, 899), pygame.SRCALPHA)
         mask.fill((255, 255, 255))
@@ -97,6 +121,7 @@ class Map:
         return plant_info
 
     def mask_grass_on_durt(self, map_data):
+        """Apply grass mask on the dust surface to draw grass in the garden"""
         for j in range(0, self.surface.get_height()):
             for i in range(0, self.surface.get_width()):
                 if self.surface.get_at((i, j)) != Color("white"):
@@ -108,4 +133,5 @@ class Map:
 
     # draw on the given surface
     def draw_on(self, screen):
+        """Draw the map on the main screen"""
         screen.blit(self.surface, (0, 0))

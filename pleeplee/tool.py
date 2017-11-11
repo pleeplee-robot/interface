@@ -14,6 +14,8 @@ from .globals import (screen_width, screen_height, FPS, fps_clock,
 
 
 def blit_on(surface, texture_name):
+        """Helper function that takes a texture and blit it on a surface."""
+
         img = pygame.image.load(texture_name).convert_alpha()
         rect = img.get_rect()
 
@@ -30,17 +32,54 @@ def blit_on(surface, texture_name):
 
 
 def game_quit(screen=None, menu=None, game=None, game_map=None, param=None):
+        """Callback function that is called to quit the game.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted. (legacy)
+            menu: Menu Object that contains everything related to the menu. (legacy)
+            game: game Object that contains everything related to the core application. (legacy)
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
         pygame.quit()
         sys.exit()
 
 
 def swap_t_is_chosing_color(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to swap menu color attribute to false.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted. (legacy)
+            menu: Menu Object that contains everything related to the menu.
+            game: game Object that contains everything related to the core application. (legacy)
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
+
         menu.is_color_chosing = False;
 
 def swap_c_is_chosing_color(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to swap menu color attribute to true.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted. (legacy)
+            menu: Menu Object that contains everything related to the menu.
+            game: game Object that contains everything related to the core application. (legacy)
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
         menu.is_color_chosing = True;
 
 def add_balise(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to add a new main balise in the core game.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted.
+            menu: Menu Object that contains everything related to the menu.
+            game: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
         coord = menu.text_input.input_string.split(";")
         color = menu.color_input.input_string
         if len(coord) != 2:
@@ -70,6 +109,15 @@ def add_balise(screen, menu, game_engine, game_map=None, param=None):
                 game_engine.balises.append(lu_beacon)
 
 def add_more_balise(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to add a new additionnal balise in the core game.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted.
+            menu: Menu Object that contains everything related to the menu.
+            game: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
         coord = menu.text_input.input_string.split(";")
         color = menu.color_input.input_string
         if len(coord) != 2:
@@ -100,15 +148,46 @@ def add_more_balise(screen, menu, game_engine, game_map=None, param=None):
                 game_engine.balises_additionnals.append(lu_beacon)
 
 def undo_balise(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to cancel adding main balise.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted. (legacy)
+            menu: Menu Object that contains everything related to the menu. (legacy)
+            game: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
+
         if (len(game_engine.balises) > 0):
                 game_engine.balises.pop()
 
 def undo_more_balise(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to cancel adding additionnal balise.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted. (legacy)
+            menu: Menu Object that contains everything related to the menu. (legacy)
+            game: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
+
         if (len(game_engine.balises_additionnals) > 0):
                 game_engine.balises_additionnals.pop()
 
 
 def done_balise(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to write all main balise in
+        the core the json file.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted.
+            menu: Menu Object that contains everything related to the menu.
+            game: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
+
         points = []
         for b in game_engine.balises:
                 points.append(b.init_pos)
@@ -153,6 +232,17 @@ def done_balise(screen, menu, game_engine, game_map=None, param=None):
 
 
 def finish_balise(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to write all additionnal balises in
+        the core the json file.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted.
+            menu: Menu Object that contains everything related to the menu.
+            game: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
+
         data = {}
 
         with open(game_engine.outfile_json, "rt") as fp:
@@ -186,6 +276,16 @@ def finish_balise(screen, menu, game_engine, game_map=None, param=None):
         sys.exit()
 
 def show_plant(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to print the plant and its information
+        on the menu surface.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted.
+            menu: Menu Object that contains everything related to the menu.
+            game: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
         menu.init_menu(screen)
         plantPath = os.path.join(basePath, param.picture_path)
         menu.plant_im = pygame.image.load(plantPath).convert_alpha()
@@ -209,6 +309,17 @@ def show_plant(screen, menu, game_engine, game_map=None, param=None):
         menu.buttons[len(menu.buttons) - 1].plant = param
 
 def remove_plant(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to remove a plant and its information
+        from the core application.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted.
+            menu: Menu Object that contains everything related to the menu.
+            game: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
+
         menu.plant_im = None
         menu.text_input = None
 
@@ -225,6 +336,16 @@ def remove_plant(screen, menu, game_engine, game_map=None, param=None):
 
 
 def set_water(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to set watering interval of a plant.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted.
+            menu: Menu Object that contains everything related to the menu.
+            game: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
+
         for i in range(0, len(game_engine.plants)):
                 if game_engine.plants[i] == param:
                         try:

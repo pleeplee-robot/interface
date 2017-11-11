@@ -7,10 +7,23 @@ import sys
 import time
 
 class Button:
+    """Simple button representation.
 
-    # Button constructor
+    Contains the logic of clicking and calling a predefine function after that.
+
+    Attributes:
+        pos_x: x corrdinate of the button
+        pos_y: y corrdinate of the button
+        width: width of the button
+        height: height of the button
+        image_a: path of the image when the mouse is on the button
+        image_na: path of the image when the mouse is not on the button
+        action: function that is called when clicking on the button
+        plant: contains a plant object if the button is connected with a plant
+    """
     def __init__(self, pos_x, pos_y, width, height, image_a=None, image_na=None,
                  action=None, plant=None):
+        """ Initialiaze all the attribute of the button object."""
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.width = width
@@ -32,6 +45,17 @@ class Button:
             self.draw_rect = self.image_a.get_rect().move(self.pos_x, self.pos_y)
 
     def update(self, screen=None, menu=None, game=None, game_map=None):
+        """Called in the gameloop to update the status of the button
+        and call action if needed
+
+        Args:
+            self: The current button object.
+            screen: Pygame screen object on which everything is blitted.
+            menu: Menu Object that contains everything related to the menu.
+            game: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application.
+        """
+
         mouse = pygame.mouse.get_pos() # mouse[0] : x / mouse[1] : y
         click = pygame.mouse.get_pressed()
 
@@ -44,6 +68,12 @@ class Button:
             self.isactive = False
 
     def draw(self, screen):
+        """Draw the button on the screen thanks to initialized image attribute
+
+        Args:
+            self: The current button object.
+            screen: Pygame screen object on which everything is blitted.
+        """
         if (self.isactive):
             screen.blit(self.image_a, self.draw_rect)
         else:

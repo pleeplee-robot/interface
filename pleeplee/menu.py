@@ -12,11 +12,16 @@ from .globals import screen_width, screen_height, FPS, fps_clock, assetsPath
 
 
 def draw_menu(screen, menu_img):
+    """Draw the main menu where the user can choose between fetching
+    or initializing mode"""
+
     menu = pygame.image.load(menu_img).convert_alpha()
     screen.blit(menu, (0, 0))
 
 
 def menu_loop(screen):
+    """First main menu loop that blits the menu and waits for an event
+    on a button """
 
     buttonInitA = os.path.join(assetsPath,
                                'buttons/button_initialisation_a.png')

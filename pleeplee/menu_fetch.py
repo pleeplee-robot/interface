@@ -13,9 +13,22 @@ from .tool import blit_on, game_quit, remove_plant, show_plant, set_water
 
 
 class MenuFetch:
+    """Menu for the fetch part representation.
+
+    Contains the information related to menu when fetching information from the robot.
+
+    Attributes:
+        surface: Surface on which the menu is blitted.
+        plant_im: Zone where the picture of the plant picture is printed.
+        title: Title of the Menu.
+        text_input: Text input object in which the user can write coordinates.
+        buttons: List of buttons object.
+        time_passed: Time passed between two update function call.
+    """
 
     # surface should be a surface of the size of 350x950
     def __init__(self, surface_e, screen):
+        """Initialiaze the menu with a surface and the main screen pygame object"""
         # get a surface
         self.surface = surface_e
         self.surface.fill((255, 255, 255))
@@ -31,6 +44,7 @@ class MenuFetch:
         self.is_color_chosing = False
 
     def draw_on(self, screen):
+        """Draw the menu on the screen"""
         # Render background
         if self.plant_im != None:
             self.surface.blit(self.plant_im, (5,50))
@@ -48,6 +62,8 @@ class MenuFetch:
             screen.blit(self.text_input.get_surface(), self.text_input.init_pos)
 
     def init_menu(self, screen):
+        """Set menu graphics at initialization."""
+
         # Render texture background
         brickTexture = os.path.join(assetsPath, 'textures/brick.jpg')
         blit_on(self.surface, brickTexture)
@@ -83,6 +99,14 @@ class MenuFetch:
         #    b.draw(screen)
 
     def update(self, screen, game_engine, game_map, events):
+        """Update core of the menu.
+
+        Args:
+            self: The current menu object.
+            game_engine: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application.
+            events: List of externals events
+        """
         # update text
         if self.text_input != None:
             self.text_input.update(events)
@@ -101,6 +125,8 @@ class MenuFetch:
         fps_clock.tick(30)
 
     def init_buttons(self, game_engine):
+        """Initialize the list of the buttons with the game engine."""
+
         for p in game_engine.plants:
             buttonPlantA = os.path.join(assetsPath, 'misc/plant_a.png')
             buttonPlant = os.path.join(assetsPath, 'misc/plant.png')

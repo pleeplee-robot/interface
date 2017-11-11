@@ -16,10 +16,22 @@ from .tool import (swap_c_is_chosing_color, swap_t_is_chosing_color,
 
 
 class MenuInit:
+    """Menu for the init part representation.
+
+    Contains the information related to menu for the initialization of the robot.
+
+    Attributes:
+        surface: Surface on which the menu is blitted.
+        title: Title of the Menu.
+        text_input: Text input object in which the user can write coordinates.
+        color_input: Text input object in which the user can write colors.
+        buttons: List of buttons object.
+    """
 
     # surface should be a surface of the size of 350x950
     def __init__(self, surface_e, screen):
-        # get a surface
+        """Initialiaze the menu with a surface and the main screen pygame object"""
+
         self.surface = surface_e
         self.surface.fill((255, 255, 255))
         self.title = "Initialization"
@@ -33,6 +45,7 @@ class MenuInit:
         self.is_color_chosing = False
 
     def draw_on(self, screen):
+        """Draw the menu on the screen"""
         # Render background
         screen.blit(self.surface, (950, 0))
 
@@ -44,6 +57,7 @@ class MenuInit:
         screen.blit(self.color_input.get_surface(), self.color_input.init_pos)
 
     def init_menu(self, screen):
+        """Set menu graphics at initialization."""
         # Render texture background
         brickTexture = os.path.join(assetsPath, 'textures/brick.jpg')
         blit_on(self.surface, brickTexture)
@@ -83,6 +97,14 @@ class MenuInit:
             b.draw(screen)
 
     def update(self, screen, game_engine, game_map, events):
+        """Update core of the menu.
+
+        Args:
+            self: The current menu object.
+            game_engine: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application.
+            events: List of externals events
+        """
         # update text
         if self.is_color_chosing:
             self.color_input.update(events)
@@ -99,6 +121,8 @@ class MenuInit:
         fps_clock.tick(30)
 
     def init_buttons(self):
+        """Initialize the list of the buttons."""
+
         text_input_button = Button(1000, 140, 95, 30,
                                    None,
                                    None,
@@ -136,6 +160,8 @@ class MenuInit:
         self.buttons.append(button_done)
 
     def button_afterdone(self):
+        """Change button configuration when the user has clicked on done button."""
+
         self.buttons.pop()
         self.buttons.pop()
         self.buttons.pop()
