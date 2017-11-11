@@ -11,7 +11,7 @@ Welcome to PleePlee Location's documentation!
     :caption: Contents:
 
     button
-..
+    application
     game_engine
     g_map
     light_beacon
@@ -19,10 +19,8 @@ Welcome to PleePlee Location's documentation!
     menu_init
     menu
     plant
-    pygame_textinput
     tool
-    vec2d
-
+..
 
 Indices and tables
 ==================
