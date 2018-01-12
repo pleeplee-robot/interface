@@ -11,7 +11,7 @@ from .button import Button
 from .light_beacon import LightBeacon
 from .plant import Plant
 from .globals import (screen_width, screen_height, FPS, fps_clock, assetsPath,
-        basePath)
+                      basePath, factor_size)
 
 
 class GameEngine:
@@ -67,14 +67,13 @@ class GameEngine:
             self: The current game engine.
             plant_info: List of plant information retrieved from the init file.
         """
-        dataPath = os.path.join(basePath, 'data_json')
+        dataPath = os.path.join(basePath, '../fetch/data_json')
         with open(dataPath) as json_file:
             data = json.load(json_file)
-
             for plant_i in plant_info:
                 for p in data['plants']:
                     p_tab = p['position'].split(",")
-                    if plant_i[0][0] == int(p_tab[0]) and int(p_tab[1]) == plant_i[0][1]:
+                    if (int(plant_i[0][0] / factor_size) == int(p_tab[0])) and (int(p_tab[1]) == int(plant_i[0][1] / factor_size)):
                         self.plants.append(Plant(plant_i[0][0], plant_i[0][1],
                                             plant_i[1], plant_i[1],
                                             p['picture_path']))

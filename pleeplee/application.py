@@ -72,7 +72,7 @@ def appli_fetch_loop(screen, menu=None, game=None, game_map=None, param=None):
     white = (255, 255, 255)
 
     screen.fill(white)
-    mapPath = os.path.join(basePath, 'map.capture_init')
+    mapPath = os.path.join(basePath, '../fetch/map.capture_init')
     plant_info = game_map.init(mapPath)
     game_engine.set_plant(plant_info)
     game_menu.init_buttons(game_engine)

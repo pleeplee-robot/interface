@@ -10,7 +10,7 @@ from . import pygame_textinput
 from pygame.locals import *
 from .light_beacon import LightBeacon
 from .globals import (screen_width, screen_height, FPS, fps_clock,
-        assetsPath, basePath)
+                      assetsPath, basePath, factor_size)
 
 
 def blit_on(surface, texture_name):
@@ -89,8 +89,8 @@ def add_balise(screen, menu, game_engine, game_map=None, param=None):
                 menu.color_input.text_color = (255, 0, 0)
         else:
                 try:
-                        pos_x = int(coord[0])
-                        pos_y = int(coord[1])
+                        pos_x = int(coord[0]) * factor_size
+                        pos_y = int(coord[1]) * factor_size
 
                         if pos_x < 0 or pos_x >= 900 or pos_y < 0 or pos_y >= 900:
                                 menu.text_input.text_color = (255, 0, 0)
@@ -127,8 +127,8 @@ def add_more_balise(screen, menu, game_engine, game_map=None, param=None):
                 menu.color_input.text_color = (255, 0, 0)
         else:
                 try:
-                        pos_x = int(coord[0])
-                        pos_y = int(coord[1])
+                        pos_x = int(coord[0]) * factor_size
+                        pos_y = int(coord[1]) * factor_size
 
                         if pos_x < 0 or pos_x >= 900 or pos_y < 0 or pos_y >= 900:
                                 menu.text_input.text_color = (255, 0, 0)
@@ -268,6 +268,7 @@ def finish_balise(screen, menu, game_engine, game_map=None, param=None):
                 map_file.close()
 
         with open('map.capture_init', 'w+') as f:
+                f.write(str(factor_size) + '\n')
                 map_str = ''.join(map_data)
                 f.write(map_str)
                 f.close()

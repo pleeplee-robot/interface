@@ -61,6 +61,7 @@ class Map:
         map_data = []
         plant_info = []
         with open(map_filed, 'r') as f:
+            f.readline()
             map_data = list(f.read().replace('\n', ''))
             for y in range(0, 900):
                 for x in range(0, 900):

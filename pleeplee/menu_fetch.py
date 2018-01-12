@@ -130,7 +130,7 @@ class MenuFetch:
         for p in game_engine.plants:
             buttonPlantA = os.path.join(assetsPath, 'misc/plant_a.png')
             buttonPlant = os.path.join(assetsPath, 'misc/plant.png')
-            button_plant = Button(p.pos_x + 25, p.pos_y + 25, p.width, p.height,
+            button_plant = Button(p.pos_x, p.pos_y, p.width, p.height,
                                   buttonPlantA, buttonPlant, show_plant, p)
             self.buttons.append(button_plant)
 
