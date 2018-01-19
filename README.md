@@ -12,10 +12,10 @@ the robot only recognize an obstacle, it will be the user job through this
 interface to dissociate between plants and real obstacles. When processing the data fetched by the 
 robot the user will also be able to setup interval watering for each plant.
 
-## How to Build
+## How to Build
 This a python project to build it, just use the make command in the root of the repository. This will downloaded the needed package and run the application.
 
-# How to Run
+## How to Run
 
 Use make in the source directory 
 
