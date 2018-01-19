@@ -3,5 +3,5 @@
 Game Map
 ========
 
-.. automodule:: pleeplee.g_map
+.. automodule:: pleepleeapp.g_map
     :members:

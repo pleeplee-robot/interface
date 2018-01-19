@@ -3,5 +3,5 @@
 MenuInit
 ========
 
-.. automodule:: pleeplee.menu_init
+.. automodule:: pleepleeapp.menu_init
     :members:

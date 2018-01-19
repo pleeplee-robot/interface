@@ -3,5 +3,5 @@
 MenuFetch
 =========
 
-.. automodule:: pleeplee.menu_fetch
+.. automodule:: pleepleeapp.menu_fetch
     :members:

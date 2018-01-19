@@ -3,5 +3,5 @@
 Plant
 =====
 
-.. automodule:: pleeplee.plant
+.. automodule:: pleepleeapp.plant
     :members:

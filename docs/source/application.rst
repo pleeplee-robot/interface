@@ -3,5 +3,5 @@
 Application
 ===========
 
-.. automodule:: pleeplee.application
+.. automodule:: pleepleeapp.application
     :members:

@@ -3,5 +3,5 @@
 GameEngine
 ==========
 
-.. automodule:: pleeplee.game_engine
+.. automodule:: pleepleeapp.game_engine
     :members:

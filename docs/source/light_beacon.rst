@@ -3,5 +3,5 @@
 LightBeacon
 ===========
 
-.. automodule:: pleeplee.light_beacon
+.. automodule:: pleepleeapp.light_beacon
     :members:

@@ -3,5 +3,5 @@
 Menu
 ====
 
-.. automodule:: pleeplee.menu
+.. automodule:: pleepleeapp.menu
     :members:

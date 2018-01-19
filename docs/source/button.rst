@@ -3,5 +3,5 @@
 Button
 ======
 
-.. automodule:: pleeplee.button
+.. automodule:: pleepleeapp.button
     :members:

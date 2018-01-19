@@ -3,5 +3,5 @@
 Tool
 ====
 
-.. automodule:: pleeplee.tool
+.. automodule:: pleepleeapp.tool
     :members:
