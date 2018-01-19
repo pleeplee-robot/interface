@@ -25,6 +25,10 @@ def appli_init_loop(screen, menu=None, game=None, game_map=None, param=None):
         game_map: Map object that represents the map part of the application.
         param: Any additionnal parameter, due to callback (legacy).
     """
+    with open('pleeplee/.config', 'r') as f:
+        g_s = f.readline()
+        garden_size = float(g_s)
+        factor_size = 900 / garden_size
 
     game_map = Map(pygame.Surface((950, 950), pygame.SRCALPHA))
     game_engine = GameEngine(screen)
@@ -66,6 +70,11 @@ def appli_fetch_loop(screen, menu=None, game=None, game_map=None, param=None):
         game_map: Map object that represents the map part of the application.
         param: Any additionnal parameter, due to callback (legacy).
     """
+    with open('pleeplee/.config', 'r') as f:
+        g_s = f.readline()
+        garden_size = float(g_s)
+        factor_size = 900 / garden_size
+
     game_map = Map(pygame.Surface((950, 950), pygame.SRCALPHA))
     game_engine = GameEngine(screen)
     game_menu = MenuFetch(pygame.Surface((350, 950), pygame.SRCALPHA), screen)
@@ -74,6 +83,7 @@ def appli_fetch_loop(screen, menu=None, game=None, game_map=None, param=None):
     screen.fill(white)
     mapPath = os.path.join(basePath, '../fetch/map.capture_init')
     plant_info = game_map.init(mapPath)
+    game_engine.set_obstacles()
     game_engine.set_plant(plant_info)
     game_menu.init_buttons(game_engine)
     while True: # Main game loop

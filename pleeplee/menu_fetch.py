@@ -9,7 +9,7 @@ from pygame.locals import *
 from .button import Button
 from .globals import (screen_width, screen_height, FPS, fps_clock,
         fontPath, assetsPath)
-from .tool import blit_on, game_quit, remove_plant, show_plant, set_water
+from .tool import blit_on, game_quit, remove_plant, show_plant, show_obstacle, set_water
 
 
 class MenuFetch:
@@ -133,6 +133,14 @@ class MenuFetch:
             button_plant = Button(p.pos_x, p.pos_y, p.width, p.height,
                                   buttonPlantA, buttonPlant, show_plant, p)
             self.buttons.append(button_plant)
+
+        for p in game_engine.obstacles:
+            buttonObA = os.path.join(assetsPath, 'misc/box_a.png')
+            buttonOb = os.path.join(assetsPath, 'misc/box.png')
+            button_ob = Button(p.pos_x, p.pos_y, p.width, p.height,
+                                  buttonObA, buttonOb, show_obstacle, p)
+            self.buttons.append(button_ob)
+
 
         buttonQuitA = os.path.join(assetsPath, 'buttons/button_quit_a.png')
         buttonQuit = os.path.join(assetsPath, 'buttons/button_quit.png')

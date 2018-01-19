@@ -205,7 +205,7 @@ def done_balise(screen, menu, game_engine, game_map=None, param=None):
                 data['balises'] = []
 
                 for b in game_engine.balises:
-                        str_pos = str(b.pos.x - 25 ) + ',' + str(b.pos.y - 25)
+                        str_pos = str(int(b.pos.x / factor_size)) + ',' + str(int(b.pos.y / factor_size))
                         data['balises'].append({
                                 'position' : str_pos,
                                 'color' : b.color
@@ -251,7 +251,7 @@ def finish_balise(screen, menu, game_engine, game_map=None, param=None):
         data['balises_additionnals'] = []
 
         for b in game_engine.balises_additionnals:
-                str_pos = str(b.pos.x - 25 ) + ',' + str(b.pos.y - 25)
+                str_pos = str(int(b.pos.x / factor_size)) + ',' + str((b.pos.y / factor_size))
                 data['balises_additionnals'].append({
                         'position' : str_pos,
                         'color' : b.color
@@ -308,6 +308,22 @@ def show_plant(screen, menu, game_engine, game_map=None, param=None):
 
         menu.buttons[len(menu.buttons) - 2].plant = param
         menu.buttons[len(menu.buttons) - 1].plant = param
+
+def show_obstacle(screen, menu, game_engine, game_map=None, param=None):
+        """Callback function that is called to print the obstacle and its information
+        on the menu surface.
+
+        Args:
+            screen: Pygame screen object on which everything is blitted.
+            menu: Menu Object that contains everything related to the menu.
+            game: game Object that contains everything related to the core application.
+            game_map: Map object that represents the map part of the application. (legacy)
+            param: Any additionnal parameter, due to callback (legacy).
+        """
+        menu.init_menu(screen)
+        plantPath = os.path.join(basePath, param.picture_path)
+        menu.plant_im = pygame.image.load(plantPath).convert_alpha()
+        menu.plant_im = pygame.transform.scale(menu.plant_im, (350, 200))
 
 def remove_plant(screen, menu, game_engine, game_map=None, param=None):
         """Callback function that is called to remove a plant and its information

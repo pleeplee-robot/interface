@@ -71,10 +71,23 @@ class GameEngine:
         with open(dataPath) as json_file:
             data = json.load(json_file)
             for plant_i in plant_info:
-                for p in data['plants']:
+                if 'plants' in data:
+                    for p in data['plants']:
+                        p_tab = p['position'].split(",")
+                        self.plants.append(Plant(int(int(p_tab[0]) * factor_size),
+                                                 int(int(p_tab[1]) * factor_size),
+                                                 plant_i[1], plant_i[1],
+                                                 p['picture_path']))
+
+    def set_obstacles(self):
+        """ Set osbtacles information.
+        """
+        dataPath = os.path.join(basePath, '../fetch/data_json')
+        with open(dataPath) as json_file:
+            data = json.load(json_file)
+            if 'obstacles' in data:
+                for p in data['obstacles']:
                     p_tab = p['position'].split(",")
-                    if (int(plant_i[0][0] / factor_size) == int(p_tab[0])) and (int(p_tab[1]) == int(plant_i[0][1] / factor_size)):
-                        self.plants.append(Plant(plant_i[0][0], plant_i[0][1],
-                                            plant_i[1], plant_i[1],
-                                            p['picture_path']))
-                        break
+                    self.obstacles.append(Plant(int(int(p_tab[0]) * factor_size),
+                                                int(int(p_tab[1]) * factor_size),
+                                                60, 60, p['picture_path']))
